@@ -15,6 +15,7 @@ import { Oferta } from '../shared/oferta.model';
 export class TopoComponent implements OnInit, OnDestroy {
 
   public ofertas: Observable<Oferta[]>;
+  public ofertas2: Oferta[];
   private subjectPesquisa: Subject<string> = new Subject<string>();
 
   constructor(private ofertasService: OfertasService) { }
@@ -44,6 +45,7 @@ export class TopoComponent implements OnInit, OnDestroy {
     this.ofertas.subscribe((ofertas: Oferta[]) => {
 
       console.log('Retorno', ofertas);
+      this.ofertas2 = ofertas;
     });
   }
 

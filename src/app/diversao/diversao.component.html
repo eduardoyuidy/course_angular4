@@ -23,7 +23,7 @@
           <p>Anunciado por: <b>{{ oferta.anunciante }}</b></p>
         </div>
         <div class="row">
-          <p>R$ {{ oferta.valor }}</p>
+          <p>{{ oferta.valor | currency:'BRL':'R$' }}</p>
         </div>
         <div class="row">
           <button 
