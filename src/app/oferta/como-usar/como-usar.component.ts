@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { OfertasService } from '../../ofertas.service';
 
@@ -9,7 +9,7 @@ import { OfertasService } from '../../ofertas.service';
   styleUrls: ['./como-usar.component.css'],
   providers: [ OfertasService ]
 })
-export class ComoUsarComponent implements OnInit {
+export class ComoUsarComponent implements OnInit, OnDestroy {
 
   public comoUsar: string;
 
@@ -20,16 +20,15 @@ export class ComoUsarComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('ComoUsuarComponent');
-    console.log('ID Parent', this.route.parent.snapshot.params['id']);
+    this.route.parent.params.subscribe((parametros: Params) => {
 
-    // Recuperar os parâmetros enviados no roteamento através da URL do componente pai (parent).
-    this.ofertasService.getComoUsarOfertaPorId(this.route.parent.snapshot.params['id'])
-      .then((descricao: string) => {
-
-        console.log('Como Usar Response', descricao);
-        this.comoUsar = descricao;
-      });
+      // Recuperar os parâmetros enviados no roteamento através da URL do componente pai (parent).
+      this.ofertasService.getComoUsarOfertaPorId(parametros.id)
+        .then((descricao: string) => {
+          this.comoUsar = descricao;
+        });
+    });
   }
 
+  ngOnDestroy() { }
 }

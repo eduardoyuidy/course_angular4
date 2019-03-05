@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 // Framework RXJS que já está incluso no projeto Angular 4.
 import { Observable, interval, Observer, Subscription } from 'rxjs';
@@ -40,10 +40,15 @@ export class OfertaComponent implements OnInit, OnDestroy {
       console.log('Parâmetros Subscribe:', parametro);
     });*/
 
-    this.ofertasService.getOfertaPorId(this.route.snapshot.params['id'])
+    // Uso de um subscribe para monitorar a mudança dos parâmetros e atualizar a Oferta mostrada em tela. -->
+    // No caso de uso do snapshot ele não monitora a mudança do path.
+    this.route.params.subscribe((parametros: Params) => {
+
+      this.ofertasService.getOfertaPorId(parametros.id)
       .then((response: Oferta) => {
         this.oferta = response;
       });
+    });
 
     // Inscrição em um observable são enviados 3 parâmetros (Instrução, Error e Complete)
     /**

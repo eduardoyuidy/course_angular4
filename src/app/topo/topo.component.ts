@@ -15,7 +15,6 @@ import { Oferta } from '../shared/oferta.model';
 export class TopoComponent implements OnInit, OnDestroy {
 
   public ofertas: Observable<Oferta[]>;
-  public ofertas2: Oferta[];
   private subjectPesquisa: Subject<string> = new Subject<string>();
 
   constructor(private ofertasService: OfertasService) { }
@@ -33,25 +32,21 @@ export class TopoComponent implements OnInit, OnDestroy {
           return of<Oferta[]>([]);
         }
 
-        console.log('Requisição HTTP para api: ', termo);
         return this.ofertasService.pesquisaOfertas(termo);
       }))
       .pipe(catchError((err: any) => { // Captura o erro.
-        console.log('Erro: ', catchError);
         return of<Oferta[]>([]);
       }));
 
-    // Subscribe para ficar escutando qualquer alteração do Observable disparado pelo método pesquisa.
-    this.ofertas.subscribe((ofertas: Oferta[]) => {
-
+    // Subscribe para ficar escutando qualquer alteração do Observable disparado pelo método pesquisa. -->
+    // Deixamos de efetuar o subscribe para depois enviar o dado para uma property do componente e passamos a usar o Pipe Async
+    /*this.ofertas.subscribe((ofertas: Oferta[]) => {
       console.log('Retorno', ofertas);
       this.ofertas2 = ofertas;
-    });
+    });*/
   }
 
   public pesquisa(termoDaBusca: string): void {
-
-    console.log('Keyup Caracter: ', termoDaBusca);
 
     /*// Método de requisição a cada keyup do campo pesquisa, isso fazia que a cada letra uma requisição fosse disparada.
     this.ofertas = this.ofertasService.pesquisaOfertas(termoDaBusca);
@@ -64,6 +59,10 @@ export class TopoComponent implements OnInit, OnDestroy {
     // Uso de um 'proxy' utilizando o subject para garantir que seja feita 'finalizada' apenas a última requisição,
     // após o usuário finalizar a digitação do termo de pesquisa, as demais pesquisas não serão retornadas para o Component.
     this.subjectPesquisa.next(termoDaBusca.trim());
+  }
+
+  public limpaPesquisa(): void {
+    this.subjectPesquisa.next('');
   }
 
   ngOnDestroy() {

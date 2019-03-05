@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { OfertasService } from '../../ofertas.service';
 
@@ -20,15 +20,13 @@ export class OndeFicaComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('OndeFicaComponent');
-    console.log('ID Parent:', this.route.parent.snapshot.params['id']);
+    // Devemos buscar os parâmetros do componente pai, visto que Onde foi definido dentro do componente Ofertas.
+    this.route.parent.params.subscribe((parametros: Params) => {
 
-    this.ofertasService.getOndeFicaOfertaPorId(this.route.parent.snapshot.params['id'])
-      .then((onde) => {
-        console.log('OndeFicaComponent Onde: ', onde);
-
-        this.ondeFica = onde;
-      });
+      this.ofertasService.getOndeFicaOfertaPorId(parametros.id)
+        .then((onde) => {
+          this.ondeFica = onde;
+        });
+    });
   }
-
 }
