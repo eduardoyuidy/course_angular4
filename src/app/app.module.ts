@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
@@ -37,8 +37,7 @@ registerLocaleData(localePt, 'pt');
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'pt' } ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
