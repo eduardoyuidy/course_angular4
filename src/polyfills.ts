@@ -78,3 +78,7 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// INTL is not imported anymore in Angular 6.
+// import 'intl';
+// import 'intl/locale-data/jsonp/pt-BR';
