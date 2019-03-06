@@ -25,6 +25,7 @@ export class ComoUsarComponent implements OnInit, OnDestroy {
       // Recuperar os parâmetros enviados no roteamento através da URL do componente pai (parent).
       this.ofertasService.getComoUsarOfertaPorId(parametros.id)
         .then((descricao: string) => {
+
           this.comoUsar = descricao;
         });
     });
