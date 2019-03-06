@@ -19,6 +19,7 @@ import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
 // Pipe
 import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
+import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
 
 // Importar locale PT-BR manually.
 registerLocaleData(localePt, 'pt');
@@ -34,7 +35,8 @@ registerLocaleData(localePt, 'pt');
     OfertaComponent,
     ComoUsarComponent,
     OndeFicaComponent,
-    DescricaoReduzida
+    DescricaoReduzida,
+    OrdemCompraComponent
   ],
   imports: [
     BrowserModule,
