@@ -13,7 +13,7 @@ export class OrdemCompraService {
     // Injeção do serviço HTTP no construtor da classe OrdemCompraService
     constructor(private http: Http) {}
 
-    public efetivarCompra(pedido: Pedido): Observable<any> {
+    public efetivarCompra(pedido: Pedido): Observable<number> {
 
         console.log('Chegamos até aqui');
         console.log(pedido);
@@ -28,7 +28,7 @@ export class OrdemCompraService {
             new RequestOptions({ headers: headers })
         )
         .pipe(map((resposta: Response) => {
-            console.log(resposta.json());
+            return resposta.json().id;
         }));
     }
 }
