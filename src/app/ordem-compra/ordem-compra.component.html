@@ -80,7 +80,16 @@
                  #inputEndereco
                  (input)="atualizaEndereco(inputEndereco.value)"
           >
-          <div class="invalid-feedback">Endereço inválido</div>
+          <div *ngIf="enderecoEstadoPrimitivo === false">
+            <!-- Uso de ng-template através de uma variável de referência no else ngIf -->
+            <div *ngIf="enderecoValido; else msgEnderecoInvalido">
+              <small class="form-text text-success">Ok</small>
+            </div>
+            <!-- ngTemplate com variável de referência para a mensagem de erro -->
+            <ng-template #msgEnderecoInvalido>
+                <small class="form-text text-danger">Endereço inválido</small>              
+            </ng-template>
+          </div>
         </div>
 
         <div class="form-group col-md-2">
@@ -95,7 +104,16 @@
                  #inputNumero
                  (input)="atualizaNumero(inputNumero.value)"
             >          
-          <small class="form-text text-muted">Ok</small>
+          <div *ngIf="numeroEstadoPrimitivo === false">
+            <!-- Uso de ng-template através de uma variável de referência no else ngIf -->
+            <div *ngIf="numeroValido; else msgNumeroInvalido">
+                <small class="form-text text-success">Ok</small>
+              </div>
+              <!-- ngTemplate com variável de referência para a mensagem de erro -->
+              <ng-template #msgNumeroInvalido>
+                  <small class="form-text text-danger">Número inválido</small>
+              </ng-template>
+          </div>
         </div>
 
         <div class="form-group col-md-4">
@@ -108,8 +126,12 @@
                  #inputComplemento
                  (input)="atualizaComplemento(inputComplemento.value)"
           >
+          <div *ngIf="complementoEstadoPrimitivo === false">
+            <div *ngIf="complementoValido">
+              <small class="form-text text-success">Ok</small>
+            </div>            
+          </div>
         </div>
-
       </div>
       <br />
 
@@ -131,12 +153,26 @@
                     selected="{{ formaPagamento == 'debito'   ? 'selected' : '' }}">Débito</option>
           </select>
 
-          <div class="invalid-feedback">Selecione uma forma de pagamento</div>
+          <div *ngIf="formaPagamentoEstadoPrimitivo === false">
+            <!-- Uso de ng-template através de uma variável de referência no else ngIf -->
+            <div *ngIf="formaPagamentoValido; else msgFormaPagamentoInvalido">
+              <small class="form-text text-success">Ok</small>
+            </div>
+            <!-- ngTemplate com variável de referência para a mensagem de erro -->
+            <ng-template #msgFormaPagamentoInvalido>
+                <small class="form-text text-danger">Selecione uma forma de pagamento</small>              
+            </ng-template>
+          </div>
         </div>
       </div>
 
       <hr />
-      <button type="submit" class="btn btn-primary btn-lg">Cofirmar compra</button>
+      <button 
+        type="button"
+        class="btn btn-primary btn-lg" 
+        [disabled]="formEstado"
+        (click)="confirmarCompra()"
+        >Cofirmar compra</button>
     </form>
   </div>
 </div>

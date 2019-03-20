@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { stringify } from 'querystring';
 
+import { OrdemCompraService } from '../ordem-compra.service';
+import { Pedido } from '../shared/pedido.model';
+
 @Component({
   selector: 'app-ordem-compra',
   templateUrl: './ordem-compra.component.html',
-  styleUrls: ['./ordem-compra.component.css']
+  styleUrls: ['./ordem-compra.component.css'],
+  providers: [ OrdemCompraService ]
 })
 export class OrdemCompraComponent implements OnInit {
+
+  // Pedido
+  public pedido: Pedido = new Pedido('', '', '', '');
 
   public endereco: string;
   public numero: string;
@@ -25,14 +32,20 @@ export class OrdemCompraComponent implements OnInit {
   public complementoEstadoPrimitivo = true;
   public formaPagamentoEstadoPrimitivo = true;
 
-  constructor() { }
+  // Controlar botão confirmar compra
+  public formEstado = 'disabled';
+
+  constructor(private ordemCompraService: OrdemCompraService) { }
 
   ngOnInit() {
-    // eyms
+
+    // Inicializando campos do componente
     this.endereco = '';
     this.numero = '';
     this.complemento = '';
     this.formaPagamento = '';
+
+    // this.ordemCompraService.efetivarCompra();
   }
 
   public atualizaEndereco(enderecoInput: string): void {
@@ -40,6 +53,7 @@ export class OrdemCompraComponent implements OnInit {
     this.enderecoEstadoPrimitivo = false;
 
     this.enderecoValido = this.endereco.trim().length > 3 ? true : false;
+    this.habilitaForm();
   }
 
   public atualizaNumero(numeroInput: string): void {
@@ -47,6 +61,7 @@ export class OrdemCompraComponent implements OnInit {
     this.numeroEstadoPrimitivo = false;
 
     this.numeroValido = this.numero.trim() !== '' ? true : false;
+    this.habilitaForm();
   }
 
   public atualizaComplemento(complementoInput: string): void {
@@ -54,6 +69,7 @@ export class OrdemCompraComponent implements OnInit {
     this.complementoEstadoPrimitivo = false;
 
     this.complementoValido = this.complemento.trim() !== '' ? true : false;
+    this.habilitaForm();
   }
 
   public atualizaFormaPagamento(formaPagamentoInput: string): void {
@@ -61,5 +77,25 @@ export class OrdemCompraComponent implements OnInit {
     this.formaPagamentoEstadoPrimitivo = false;
 
     this.formaPagamentoValido = this.formaPagamento.trim() !== '' ? true : false;
+    this.habilitaForm();
+  }
+
+  public habilitaForm(): void {
+    if (this.enderecoValido === true && this.numeroValido === true && this.formaPagamentoValido === true) {
+      this.formEstado = '';
+    } else {
+      this.formEstado = 'disabled';
+    }
+  }
+
+  public confirmarCompra(): void {
+
+    this.pedido.endereco = this.endereco;
+    this.pedido.numero = this.numero;
+    this.pedido.complemento = this.complemento;
+    this.pedido.formaPagamento = this.formaPagamento;
+
+    this.ordemCompraService.efetivarCompra(this.pedido)
+      .subscribe();
   }
 }
