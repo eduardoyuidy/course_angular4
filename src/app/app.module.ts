@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { FormsModule } from '@angular/forms';
 
 import { ROUTES } from './app.routes';
 
@@ -22,7 +23,7 @@ import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
 import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
 
-// Importar locale PT-BR manually.
+// Importar locale PT-BR manualmente.
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -43,6 +44,7 @@ registerLocaleData(localePt, 'pt');
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'pt' } ],
