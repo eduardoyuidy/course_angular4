@@ -5,13 +5,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, interval, Observer, Subscription } from 'rxjs';
 
 import { OfertasService } from '../ofertas.service';
+import { CarrinhoService } from '../carrinho.service';
 import { Oferta } from '../shared/oferta.model';
 
 @Component({
   selector: 'app-oferta',
   templateUrl: './oferta.component.html',
   styleUrls: ['./oferta.component.css'],
-  providers: [ OfertasService ]
+  providers: [
+    OfertasService
+  ]
 })
 export class OfertaComponent implements OnInit, OnDestroy {
 
@@ -25,7 +28,8 @@ export class OfertaComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private ofertasService: OfertasService
+    private ofertasService: OfertasService,
+    private carrinhoService: CarrinhoService
   ) { }
 
   ngOnInit() {
@@ -87,6 +91,11 @@ export class OfertaComponent implements OnInit, OnDestroy {
       (error) => { console.log('Erro:', error); },
       () => { console.log('A Stream de eventos foi finalizada!'); }
      );*/
+  }
+
+  public adicionarItemCarrinho(): void {
+
+    this.carrinhoService.incluirItem(this.oferta);
   }
 
   ngOnDestroy() {

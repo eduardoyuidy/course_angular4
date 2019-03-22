@@ -9,6 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ROUTES } from './app.routes';
 
+// Pipe
+import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
+
+import { CarrinhoService } from './carrinho.service';
+
 import { AppComponent } from './app.component';
 import { TopoComponent } from './topo/topo.component';
 import { HomeComponent } from './home/home.component';
@@ -19,8 +24,6 @@ import { OfertaComponent } from './oferta/oferta.component';
 import { ComoUsarComponent } from './oferta/como-usar/como-usar.component';
 import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
-// Pipe
-import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
 import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
 
@@ -49,7 +52,7 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'pt' } ],
+  providers: [ CarrinhoService, { provide: LOCALE_ID, useValue: 'pt' } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
