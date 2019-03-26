@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 
+// import { Observable, interval, Subject } from 'rxjs';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { BdService } from '../../bd.service';
+import { ProgressoService } from '../../progresso.service';
 
 @Component({
   selector: 'app-incluir-publicacao',
@@ -18,7 +23,13 @@ export class IncluirPublicacaoComponent implements OnInit {
   public email: string;
   public imagem: any;
 
-  constructor(private bdService: BdService) { }
+  public progressoPublicacao = 'pendente';
+  public porcentagemUpload: number;
+
+  constructor(
+    private bdService: BdService,
+    private progressoService: ProgressoService
+  ) { }
 
   ngOnInit() {
 
@@ -33,6 +44,28 @@ export class IncluirPublicacaoComponent implements OnInit {
       email: this.email,
       titulo: this.formulario.value.titulo,
       imagem: this.imagem
+    });
+
+    // Monitorar através de um Interval ao qual nos subscrevemos o valor das propriedades de status e estado.
+    const acompanhamentoUpload = interval(1500);
+
+    const continua = new Subject();
+
+    continua.next(true);
+
+    acompanhamentoUpload
+      .pipe(takeUntil(continua)) // Continua até que continua === false
+      .subscribe(() => {
+
+        this.progressoPublicacao = 'andamento';
+
+        this.porcentagemUpload = (( this.progressoService.estado.bytesTransferred / this.progressoService.estado.totalBytes ) * 100);
+        this.porcentagemUpload = Math.round(this.porcentagemUpload);
+
+        if (this.progressoService.status === 'concluido') {
+          this.progressoPublicacao = 'concluido';
+          continua.next(false);
+        }
     });
   }
 

@@ -8,6 +8,7 @@ import { ROUTES } from './app.routes';
 
 import { AutenticacaoService } from './autenticacao.service';
 import { AutenticacaoGuard } from './autenticacao-guard.service';
+import { ProgressoService } from './progresso.service';
 import { BdService } from './bd.service';
 
 import { AppComponent } from './app.component';
@@ -39,7 +40,8 @@ import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-pu
   providers: [
     AutenticacaoService,
     AutenticacaoGuard,
-    BdService
+    BdService,
+    ProgressoService
   ],
   bootstrap: [AppComponent]
 })
