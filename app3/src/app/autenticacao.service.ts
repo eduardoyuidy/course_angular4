@@ -34,8 +34,6 @@ export class AutenticacaoService {
 
     public autenticarUsuario(email: string, senha: string): void {
 
-        console.log('autenticarUsuario', email, senha);
-
         firebase.auth().signInWithEmailAndPassword(email, senha)
             .then((resposta: any) => {
 
