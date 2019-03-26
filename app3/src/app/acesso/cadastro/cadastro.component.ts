@@ -45,7 +45,8 @@ export class CadastroComponent implements OnInit {
 
     console.log(usuario);
 
-    this.autenticacaoService.cadastrarUsuario(usuario);
+    this.autenticacaoService.cadastrarUsuario(usuario)
+      .then(() => { this.exibirPainelLogin(); });
   }
 
 }
