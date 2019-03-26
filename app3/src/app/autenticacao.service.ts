@@ -61,6 +61,24 @@ export class AutenticacaoService {
             this.tokenId = localStorage.getItem('idTokenInstagram');
         }
 
+        // Caso não esteja logado, deve redirecionar o usuário à página de login.
+        if (this.tokenId === undefined) {
+            this.router.navigate(['/']);
+        }
+
         return this.tokenId !== undefined;
+    }
+
+    public sair(): void {
+
+        // Efetuar o método de logout do firebase.
+        firebase.auth().signOut()
+            .then(() => {
+                // Limpar o localStorage no item 'idTokenInstagram'
+                localStorage.removeItem('idTokenInstagram');
+                this.tokenId = undefined;
+
+                this.router.navigate(['/#']);
+            });
     }
 }

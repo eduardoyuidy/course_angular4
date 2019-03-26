@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
 
   public autenticar(): void {
 
-    console.log('Autenticar', this.formulario);
-
     this.autenticacaoService.autenticarUsuario(this.formulario.value.email, this.formulario.value.senha);
   }
 
