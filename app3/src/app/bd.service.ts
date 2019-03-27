@@ -23,7 +23,7 @@ export class BdService {
                 // Nome de imagem recebe o nome do documento gravado no Firebase(Database)
                 nomeImagem = resposta.key;
 
-                // Ao finalizar o envio dos detalhes da postagem, dispara o envio da imagem, 
+                // Ao finalizar o envio dos detalhes da postagem, dispara o envio da imagem,
                 // utilizando o Key como nome do arquivo de imagem do storage.
 
                 // Envio de arquivo para o Firebase Storage
