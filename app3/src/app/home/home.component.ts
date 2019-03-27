@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AutenticacaoService } from '../autenticacao.service';
 
@@ -8,6 +8,9 @@ import { AutenticacaoService } from '../autenticacao.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  // Através do ViewChild conseguimos acessar a classe do comp. filho, no template devemos marcar o elemento filho com o id #publicacoes.
+  @ViewChild('publicacoes') public publicacoes: any;
 
   constructor(
     private autenticacaoService: AutenticacaoService
@@ -19,6 +22,12 @@ export class HomeComponent implements OnInit {
   public sair(): void {
 
     this.autenticacaoService.sair();
+  }
+
+  public atualizarTimeLine(event: Event): void {
+
+    // Atualizar as publicações do componente FILHO (publicacoes)
+    this.publicacoes.atualizarTimeLine();
   }
 
 }

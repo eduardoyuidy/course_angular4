@@ -37,7 +37,7 @@ export class AutenticacaoService {
         firebase.auth().signInWithEmailAndPassword(email, senha)
             .then((resposta: any) => {
 
-                // Token é retornado
+                // Token é retornado e armazenado no atributo tokenId da classe.
                 firebase.auth().currentUser.getIdToken()
                     .then((IdToken: string) => {
 

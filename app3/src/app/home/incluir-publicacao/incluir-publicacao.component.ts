@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 
@@ -15,6 +15,9 @@ import { ProgressoService } from '../../progresso.service';
   styleUrls: ['./incluir-publicacao.component.css']
 })
 export class IncluirPublicacaoComponent implements OnInit {
+
+  // Expor o método atualizarTimeLine para o componente PAI (home)
+  @Output() public atualizarTimeLine: EventEmitter<string> = new EventEmitter<string>();
 
   public formulario: FormGroup = new FormGroup({
     titulo: new FormControl(null, [ Validators.required, Validators.minLength(3) ])
@@ -64,6 +67,10 @@ export class IncluirPublicacaoComponent implements OnInit {
 
         if (this.progressoService.status === 'concluido') {
           this.progressoPublicacao = 'concluido';
+
+          // eyms
+          this.atualizarTimeLine.emit('atualizar');
+
           continua.next(false);
         }
     });

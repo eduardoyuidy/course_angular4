@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // Initialize Firebase ---- EYMS
+    // *TODO Initialize Firebase with atributes (EYMS)
     const config = {
       apiKey: 'apikey',
       authDomain: 'authDomain',
