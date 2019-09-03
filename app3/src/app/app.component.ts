@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
 
     // *TODO Initialize Firebase with atributes (EYMS)
     const config = {
-      apiKey: "AIzaSyBpzR4eYdym9NGxaQysYF5nfk6Kc2BH9iw",
-      authDomain: "jta-instagram-clone-d8131.firebaseapp.com",
-      databaseURL: "https://jta-instagram-clone-d8131.firebaseio.com",
-      projectId: "jta-instagram-clone-d8131",
-      storageBucket: "jta-instagram-clone-d8131.appspot.com",
-      messagingSenderId: "801942607509",
-      appId: "1:801942607509:web:8ff43ff501a8b842"
+      apiKey: "apiKey",
+      authDomain: "authDomain",
+      databaseURL: "databaseURL",
+      projectId: "projectId",
+      storageBucket: "storageBucket",
+      messagingSenderId: "messagingSenderId",
+      appId: "appId"
     };
 
     firebase.initializeApp(config);
